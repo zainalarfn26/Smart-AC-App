@@ -321,17 +321,17 @@ class MqttController extends ChangeNotifier {
     if (key == null) return null;
     final keyStr = key.toString();
 
-    final byDevice = rooms.cast<Map<String, dynamic>?>().firstWhere(
-      (r) => (r?['device_id']?.toString() ?? '') == keyStr,
-      orElse: () => null,
-    );
-    if (byDevice != null) return byDevice as Map<String, dynamic>;
+    for (final room in rooms) {
+      if ((room['device_id']?.toString() ?? '') == keyStr) {
+        return room;
+      }
+    }
 
-    final byName = rooms.cast<Map<String, dynamic>?>().firstWhere(
-      (r) => (r?['room']?.toString() ?? '') == keyStr,
-      orElse: () => null,
-    );
-    if (byName != null) return byName as Map<String, dynamic>;
+    for (final room in rooms) {
+      if ((room['room']?.toString() ?? '') == keyStr) {
+        return room;
+      }
+    }
 
     return null;
   }

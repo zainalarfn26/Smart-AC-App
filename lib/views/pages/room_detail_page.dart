@@ -33,8 +33,6 @@ class _RoomDetailPageState extends State<RoomDetailPage> {
   late String selectedIrTarget;
   MqttController? _mqttController;
   bool isEditingSettings = false;
-  String? _lastIrLearningState;
-  String? _lastIrLearningTarget;
 
   final List<String> _acBrands = [
     'Daikin',
@@ -68,8 +66,6 @@ class _RoomDetailPageState extends State<RoomDetailPage> {
     selectedIrTarget = (irLearningTarget?.toString().isNotEmpty == true)
       ? irLearningTarget!.toUpperCase()
       : 'POWER_ON';
-    _lastIrLearningState = irLearningState;
-    _lastIrLearningTarget = irLearningTarget;
   }
 
   @override
@@ -187,9 +183,6 @@ class _RoomDetailPageState extends State<RoomDetailPage> {
           );
         });
       }
-
-      _lastIrLearningState = irLearningState;
-      _lastIrLearningTarget = irLearningTarget;
     });
   }
 
@@ -955,7 +948,7 @@ class _RoomDetailPageState extends State<RoomDetailPage> {
           ),
           const SizedBox(height: 16),
           DropdownButtonFormField<String>(
-            value: selectedIrTarget,
+            initialValue: selectedIrTarget,
             dropdownColor: isDark ? AppColors.surfaceDark : Colors.white,
             style: GoogleFonts.poppins(
               fontSize: 13,
